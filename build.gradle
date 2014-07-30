@@ -1,0 +1,20 @@
+apply plugin:'java'
+
+repositories {
+	ivy {
+		url 'http://repo.typesafe.com/typesafe/ivy-releases'
+	}
+}
+
+dependencies {
+	runtime 'org.scala-sbt:sbt-launch:0.13.0'
+}
+
+task sbt(type:JavaExec, dependsOn:'classes') {
+	classpath = sourceSets.main.runtimeClasspath
+	main = 'xsbt.boot.Boot'
+	if(project.hasProperty('sbt-args')) {
+		args project.'sbt-args'.split(',')
+	}
+}
+

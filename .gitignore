@@ -22,6 +22,7 @@ temp
 dist
 test-output
 build.log
+/.gradle/
 
 # misc
 .DS_Store
