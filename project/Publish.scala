@@ -14,7 +14,7 @@ object Publish {
     pomExtra             := scm ++ developersXml(developers),
     publishMavenStyle    := true,
     pomIncludeRepository := { _ => false },
-    publishTo            := Some(if(isSnapshot.value) sonatypeSnapshots else sonatypeStaging),
+    publishTo            := Some(gdsMavenRepo),
     credentials          += Credentials(Path.userHome / ".sbt" / ".credentials")
   )
 
