@@ -238,14 +238,15 @@ Dumping custom data
 Some people might want more data than what Gatling normally dumps in the ``simulation.log`` file.
 
 Http protocol provide a hook for dumping extra data with ``extraInfoExtractor(f: ExtraInfoExtractor)``.
-``ExtraInfoExtractor`` is a shortcut for the function type: ``(String, Status, Session, Request, Response) => List[Any]``.
-Thus your extractor need to return a ``List[Any]``, ``Any`` is the equivalent of ``Object`` in Scala, and have access to:
+``ExtraInfoExtractor`` is a shortcut for the function type: ``(ExtraInfo) => List[Any]``.
+Thus your extractor need to return a ``List[Any]``, ``Any`` is the equivalent of ``Object`` in Scala.
+``ExtraInfo`` gives you access to :
 
-* The name of the request.
-* The status of the request, i.e. OK/KO.
-* The user Sesion.
-* The http request.
-* The http response.
+* ``requestName``: The name of the request.
+* ``status``: The status of the request, i.e. OK/KO.
+* ``session``: The user's Session.
+* ``request``: The http request.
+* ``response``: The http response.
 
 The extra data will be appended to the relative records in the ``simulation.log`` file and reports generation will ignore them.
 It's up to the user to build his own analysis system for them.
