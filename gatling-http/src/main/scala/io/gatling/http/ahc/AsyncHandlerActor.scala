@@ -37,6 +37,7 @@ import io.gatling.http.check.{ HttpCheck, HttpCheckTarget }
 import io.gatling.http.cookie.CookieHandling
 import io.gatling.http.fetch.{ CssResourceFetched, RegularResourceFetched, ResourceFetcher }
 import io.gatling.http.referer.RefererHandling
+import io.gatling.http.request.ExtraInfo
 import io.gatling.http.response.Response
 import io.gatling.http.util.HttpHelper
 import io.gatling.http.util.HttpHelper.{ isCss, resolveFromURI }
@@ -119,8 +120,8 @@ class AsyncHandlerActor extends BaseActor with DataWriterClient {
 
       val extraInfo: List[Any] = try {
         tx.request.config.extraInfoExtractor match {
-          case Some(extractor) => extractor(tx.request.requestName, status, tx.session, tx.request.ahcRequest, response)
-          case _               => Nil
+          case Some(extractor) => extractor(ExtraInfo(tx.request.requestName, status, tx.session, tx.request.ahcRequest, response))
+          case _ => Nil
         }
       } catch {
         case e: Exception =>

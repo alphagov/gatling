@@ -50,7 +50,7 @@ class HttpCompileTest extends Simulation {
     .inferHtmlResources(white = WhiteList(".*\\.html"))
 
   val httpConfToVerifyUserProvidedInfoExtractors = http
-    .extraInfoExtractor((requestName, requestStatus, session, request, response) => Nil)
+    .extraInfoExtractor(extraInfo => List(extraInfo.requestName, extraInfo.response.body.string))
 
   val usersInformation = tsv("user_information.tsv")
 
